@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <script language="javascript">
+    function test() {
+        var val1 = document.kirim.T1.value;
+        
+       
+        if (val1.trim() === "") {
+            alert("Input tidak boleh kosong!");
+            document.kirim.T1.focus();
+            return;
+        }
+        
+        
+        if (isNaN(val1)) {
+            alert("Harap masukkan angka yang valid!");
+            document.kirim.T1.focus();
+            document.kirim.T1.select();
+            return;
+        }
+        
+        
+        if (val1 % 1 !== 0) {
+            alert("Harap masukkan bilangan bulat!");
+            document.kirim.T1.focus();
+            document.kirim.T1.select();
+            return;
+        }
+        
+       
+        if (val1 % 2 == 0) {
+            document.kirim.T2.value = "bilangan genap";
+        } else {
+            document.kirim.T2.value = "bilangan ganjil";
+        }
+    }
+    
+    
+    function resetForm() {
+        document.kirim.T1.value = "";
+        document.kirim.T2.value = "";
+        document.kirim.T1.focus();
+    }
+    
+
+    function validateInput(event) {
+        var charCode = event.which ? event.which : event.keyCode;
+        
+
+        if (charCode == 8 || charCode == 46 || charCode == 9 || 
+            charCode == 27 || charCode == 13) {
+            return true;
+        }
+
+        else if (charCode == 45 && event.target.selectionStart === 0) {
+            return true;
+        }
+
+        else if (charCode < 48 || charCode > 57) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    }
+    </script>
+</head>
+<body>
+    <form method="POST" name="kirim">
+        <p>BIL <input type="text" name="T1" size="20" onkeypress="return validateInput(event)">
+        Merupakan BIL <input type="text" name="T2" size="20" readonly></p>
+        <p>
+            <input type="button" value="TEBAK" name="B1" onclick="test()">
+            <input type="button" value="RESET" name="B2" onclick="resetForm()">
+        </p>
+    </form>
+</body>
+</html>
